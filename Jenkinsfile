@@ -12,10 +12,5 @@ pipeline {
                 sh './mvnw test'
             }
         }
-        stage('Deploy') {
-            steps {
-                slackSend(channel: '#deployment', message: 'La implementación se realizó con éxito')
-            }
-        }
     }
 }
