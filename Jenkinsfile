@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage ('test') {
+        stage('Build') {
             steps {
-                script {
-                    bat 'mvn test'
-                }
+                sh './mvnw clean package'
             }
         }
-
-        stage ('Build') {
+        stage('Test') {
             steps {
-                script {
-                    bat 'mvn -B -DskipTests clean package'
-                }
+                sh './mvnw test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                slackSend(channel: '#deployment', message: 'La implementación se realizó con éxito')
             }
         }
     }
